@@ -10,16 +10,10 @@ import javax.swing.JPanel;
 public class InGameMenu extends JPanel {
 	StartGame startGame;
 	JFrame frame;
-	JPanel panel;
 	InGameMenu(StartGame startGame, JFrame frame){
 		this.startGame = startGame;
 		this.frame = frame;
 		frame.addKeyListener(new MyKeyAdapter());
-		
-	}
-	
-	public void paint(Graphics g) {
-		super.paint(g);
 	}
 	
 	public class MyKeyAdapter extends KeyAdapter{

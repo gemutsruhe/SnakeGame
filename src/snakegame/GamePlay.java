@@ -10,12 +10,10 @@ import javax.swing.JPanel;
 public class GamePlay extends JPanel{
 	StartGame startGame;
 	JFrame frame;
-	JPanel panel;
 	GamePlay(StartGame startGame, JFrame frame){
 		this.startGame = startGame;
 		this.frame = frame;
 		frame.addKeyListener(new MyKeyAdapter());
-		
 	}
 	
 	public void paint(Graphics g) {
