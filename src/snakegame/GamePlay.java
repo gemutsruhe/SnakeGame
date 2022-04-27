@@ -1,16 +1,31 @@
 package snakegame;
 
+import java.awt.Graphics;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class GamePlay {
-	SnakeGameFrame frame;
+public class GamePlay extends JPanel{
+	StartGame startGame;
+	JFrame frame;
 	JPanel panel;
-	GamePlay(SnakeGameFrame frame){
+	GamePlay(StartGame startGame, JFrame frame){
+		this.startGame = startGame;
 		this.frame = frame;
-		this.panel = frame.getPanel();
+		frame.addKeyListener(new MyKeyAdapter());
+		
 	}
 	
-	public void paint() {
-		
+	public void paint(Graphics g) {
+		super.paint(g);
+	}
+	
+	public class MyKeyAdapter extends KeyAdapter{
+		@Override
+		public void keyPressed(KeyEvent e) {
+			
+		}
 	}
 }
