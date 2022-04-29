@@ -10,7 +10,9 @@ public class StartGame {
 	
 	StartGame(){
 		frame = new Frame();
-		showMenu();
+		//showMenu();
+		newGame();
+		//showInGameMenu();
 	}
 	public void showMenu() {
 		if(panel != null) frame.remove(panel);
@@ -34,10 +36,11 @@ public class StartGame {
 	}
 	
 	public void showInGameMenu() {
-		frame.remove(panel);
-		panel = new InGameMenu(this, frame);
-		frame.add(panel);
-		frame.setVisible(true);
+		//frame.remove(panel);
+		new InGameMenu(this, frame);
+		//panel = new InGameMenu(this, frame);
+		//frame.add(panel);
+		//frame.setVisible(true);
 	}
 	
 }

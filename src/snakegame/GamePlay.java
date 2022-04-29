@@ -25,8 +25,8 @@ public class GamePlay extends JPanel{
 	Timer timer;
 	private boolean running = true;
 	Graphics g;
-	private static int DELAY = 60;
-	char direction = 'R';
+	private static int DELAY = 50;
+	char direction = 'U';
 	GamePlay(StartGame startGame, JFrame frame){
 		this.startGame = startGame;
 		this.frame = frame;
@@ -41,14 +41,10 @@ public class GamePlay extends JPanel{
 		new Timer(DELAY, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				if(isSnakeEatApple()) {
 					growSnake();
 					moveApple();
-					System.out.println(snake.size());
-					
-					for(int i = 0; i < snake.size(); i++) {
-						System.out.println("snake" + i + " : " + snake.get(i)[0] + " " + snake.get(i)[1]);
-					}
 				}
 				
 				for(int i = snake.size() - 1; i >= 1; i--) {
@@ -71,7 +67,11 @@ public class GamePlay extends JPanel{
 					break;
 				}
 				
-				repaint();
+				if(isCollison()) {
+					return ;
+				} else {
+					repaint();
+				}
 			}
 		}).start();
 	}
@@ -114,23 +114,38 @@ public class GamePlay extends JPanel{
 		snake.add(tail);
 	}
 	
+	private boolean isCollison() {
+		for(int i = 1; i < snake.size(); i++) {
+			if(snake.get(i)[0] == snakeHead[0] && snake.get(i)[1] == snakeHead[1]) {
+				return true;
+			}
+		}
+		if(snakeHead[0] < 0 || snakeHead[0] >= 600 || snakeHead[1] < 0 || snakeHead[1] >= 600) {
+			return true;
+		}
+		return false;
+	}
+	
 	public class MyKeyAdapter extends KeyAdapter{
 		@Override
 		public void keyPressed(KeyEvent e) {
 			System.out.println(e.getKeyCode());
 			switch(e.getKeyCode()) {
 			case KeyEvent.VK_LEFT:
-				direction = 'L';
+				if(direction != 'R') direction = 'L';
 				break;
 			case KeyEvent.VK_RIGHT:
-				direction = 'R';
+				if(direction != 'L') direction = 'R';
 				break;
 			case KeyEvent.VK_UP:
-				direction = 'U';
+				if(direction != 'D') direction = 'U';
 				break;
 			case KeyEvent.VK_DOWN:
-				direction = 'D';
+				if(direction != 'U') direction = 'D';
 				break;
+			case KeyEvent.VK_ESCAPE:
+				startGame.showInGameMenu();
+				direction = '0';
 			}
 		}
 	}
