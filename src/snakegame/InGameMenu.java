@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -17,17 +18,17 @@ import javax.swing.JPanel;
 public class InGameMenu {
 	private StartGame startGame;
 	private JFrame frame;
-	
+	private GamePlay gamePlayPanel;
 	private JLabel title;
 	private JButton resume;
 	private JButton restart;
 	private JButton save;
 	private JButton exit;
 	
-	InGameMenu(StartGame startGame, JFrame frame){
+	InGameMenu(StartGame startGame, JFrame frame, GamePlay gamePlayPanel, char direction){
 		this.startGame = startGame;
 		this.frame = frame;
-		
+		this.gamePlayPanel = gamePlayPanel;
 		Frame inGameMenu = new Frame();
 		inGameMenu.setSize(400,400);
 		inGameMenu.setLocationRelativeTo(null);
@@ -61,7 +62,6 @@ public class InGameMenu {
 		panel.add(exit);
 		panel.add(Box.createVerticalGlue());
 		
-		inGameMenu.setAlwaysOnTop(true);
 		inGameMenu.add(panel);
 		inGameMenu.setVisible(true);
 		
@@ -70,7 +70,8 @@ public class InGameMenu {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+				gamePlayPanel.setDirection(direction);
+				inGameMenu.dispose();
 			}
 		});
 		restart.addActionListener(new ActionListener() {
@@ -78,7 +79,8 @@ public class InGameMenu {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+				gamePlayPanel.init();
+				inGameMenu.dispose();
 			}
 		});
 		save.addActionListener(new ActionListener() {
@@ -86,7 +88,14 @@ public class InGameMenu {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+				try {
+					gamePlayPanel.saveGame(direction);
+					inGameMenu.dispose();
+					startGame.showMenu();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		exit.addActionListener(new ActionListener() {
@@ -94,7 +103,7 @@ public class InGameMenu {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+				System.exit(0);
 			}
 		});
 		
