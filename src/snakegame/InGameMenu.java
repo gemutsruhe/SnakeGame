@@ -30,7 +30,7 @@ public class InGameMenu {
 		this.frame = frame;
 		this.gamePlayPanel = gamePlayPanel;
 		Frame inGameMenu = new Frame();
-		inGameMenu.setSize(400,400);
+		inGameMenu.setSize(300,300);
 		inGameMenu.setLocationRelativeTo(null);
 		JPanel panel = new JPanel();
 		
@@ -79,8 +79,8 @@ public class InGameMenu {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				gamePlayPanel.init();
-				inGameMenu.dispose();
+				gamePlayPanel.init(); // initialize direction, apple, snake
+				inGameMenu.dispose(); // frame exit
 			}
 		});
 		save.addActionListener(new ActionListener() {
@@ -89,9 +89,9 @@ public class InGameMenu {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				try {
-					gamePlayPanel.saveGame(direction);
-					inGameMenu.dispose();
-					startGame.showMenu();
+					gamePlayPanel.saveGame(direction); // save game
+					inGameMenu.dispose(); // frame exit
+					startGame.showMenu(); // back to main menu
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -103,7 +103,7 @@ public class InGameMenu {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				System.exit(0);
+				System.exit(0); // exit : game exit
 			}
 		});
 		

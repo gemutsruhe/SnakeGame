@@ -32,7 +32,6 @@ public class GamePlay extends JPanel{
 	int[] snakeHead = {300,300};
 	int[] apple = {0,0};
 	Timer timer;
-	private boolean running = true;
 	Graphics g;
 	private static int DELAY = 50;
 	char direction = 'U';
@@ -57,18 +56,18 @@ public class GamePlay extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				if(direction != '0') {
+				if(direction != '0') { // not in InGameMenu
 					if(isSnakeEatApple()) {
 						growSnake();
 						moveApple();
 					}
 					
-					for(int i = snake.size() - 1; i >= 1; i--) {
+					for(int i = snake.size() - 1; i >= 1; i--) { // move snake trunk
 						snake.get(i)[0] = snake.get(i-1)[0];
 						snake.get(i)[1] = snake.get(i-1)[1];
 					}
 					
-					switch(direction) {
+					switch(direction) { // move snake head
 					case 'L':
 						snakeHead[0] -= size;
 						break;
@@ -83,7 +82,7 @@ public class GamePlay extends JPanel{
 						break;
 					}
 					
-					if(isCollison()) {
+					if(isCollision()) {
 						return ;
 					} else {
 						repaint();
@@ -105,7 +104,7 @@ public class GamePlay extends JPanel{
 			g.fillRect(snake.get(i)[0], snake.get(i)[1], size, size);
 		}
 	}
-	
+
 	private void drawApple() {
 		g.setColor(Color.red);
 		g.fillOval(apple[0], apple[1], size, size);
@@ -122,7 +121,6 @@ public class GamePlay extends JPanel{
 	private void moveApple() {
 		apple[0] = (int) (Math.random() * (600 / size)) * size;
 		apple[1] = (int) (Math.random() * (600 / size)) * size;
-		
 	}
 	
 	private void growSnake() {
@@ -130,23 +128,33 @@ public class GamePlay extends JPanel{
 		snake.add(tail);
 	}
 	
-	private boolean isCollison() {
-		for(int i = 1; i < snake.size(); i++) {
+	private boolean isCollision() {
+		for(int i = 1; i < snake.size(); i++) { // collide to trunk
 			if(snake.get(i)[0] == snakeHead[0] && snake.get(i)[1] == snakeHead[1]) {
 				return true;
 			}
-		}
+		} // collide to border
 		if(snakeHead[0] < 0 || snakeHead[0] >= 600 || snakeHead[1] < 0 || snakeHead[1] >= 600) {
 			return true;
 		}
 		return false;
 	}
 	
+	private void dieSnake() throws FileNotFoundException {
+		File file = new File("Ranking.data");
+		if(file.exists()) {
+			FileInputStream fis = new FileInputStream(file);
+		} else {
+			
+		}
+		startGame.showMenu();
+	}
+	
 	public void setDirection(char direction) {
 		this.direction = direction;
 	}
-	
-	public void init() {
+
+	public void init() { // init snake, direction, location of apple
 		snakeHead[0] = 300;
 		snakeHead[1] = 300;
 		snake = new ArrayList<int[]>();
@@ -158,8 +166,9 @@ public class GamePlay extends JPanel{
 	public void saveGame(char direction) throws IOException {
 		File file = new File("saveGame.data");
 		FileOutputStream fos = new FileOutputStream(file);
-		fos.write(((int)direction + "\n" + apple[0] + " " + apple[1] + "\n").getBytes());
-		for(int i = 0; i < snake.size(); i++) {
+		fos.write(((int)direction + "\n").getBytes()); // save snake head direction
+		fos.write((apple[0] + " " + apple[1] + "\n").getBytes()); // save apple location
+		for(int i = 0; i < snake.size(); i++) { // save snake location
 			fos.write((snake.get(i)[0] + " " + snake.get(i)[1] + "\n").getBytes());
 		}
 		fos.close();
@@ -169,22 +178,22 @@ public class GamePlay extends JPanel{
 		FileReader fileReader = new FileReader("saveGame.data");
 		BufferedReader reader = new BufferedReader(fileReader);
 
-		direction = (char) Integer.parseInt(reader.readLine());
+		direction = (char) Integer.parseInt(reader.readLine()); // first line : direction
 		
-		String[] location = reader.readLine().split(" ");
-		apple[0] = (Integer.parseInt(location[0]));
+		String[] location = reader.readLine().split(" "); // second line : apple location
+		apple[0] = (Integer.parseInt(location[0])); 
 		apple[1] = (Integer.parseInt(location[1]));
 		
 		snake = new ArrayList<int[]>();
 		String read;
-		while((read = reader.readLine()) != null) {
+		while((read = reader.readLine()) != null) { // third to last line : snake head, snake trunk
 			location = read.split(" ");
 			int[] temp = new int[2];
 			temp[0] = Integer.parseInt(location[0]);
-			temp[1] = Integer.parseInt(location[1]);
+			temp[1] = Integer.parseInt(location[1]);  
 			snake.add(temp);
 		}
-		snakeHead = snake.get(0);
+		snakeHead = snake.get(0); // first is snake head
 		
 		fileReader.close();
 	}
