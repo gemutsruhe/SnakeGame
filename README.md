@@ -8,10 +8,11 @@ git clone https://github.com/gemutsruhe/SnakeGame.git
 Run
 --------------
 1. Open Console window suitable for OS(ex. windows : cmd)
-![image](https://user-images.githubusercontent.com/44457864/166145995-2c4ebeb6-523d-4afe-9ef9-64c6fcb441e3.png)
+![image](https://user-images.githubusercontent.com/44457864/166146096-64715e2e-75a5-4381-b891-4229cfe8402d.png)
 2. Go to the directory where the jar file exists
-![image](https://user-images.githubusercontent.com/44457864/166146035-727499ae-ac22-42ae-b8f5-a7257f8092df.png)
+![image](https://user-images.githubusercontent.com/44457864/166146116-197adf3c-a302-4da0-adca-44542bb58f8c.png)
 3. Enter "java -jar SnakeGame.jar"
+![image](https://user-images.githubusercontent.com/44457864/166146141-6e038e2a-2b9c-4408-b4ea-82a216c971a8.png)
 --------------
 1. Open Eclipse ( or other IDE )
 2. File > Switch WorkSapce > your work space  
