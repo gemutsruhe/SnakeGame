@@ -1,6 +1,6 @@
 # SnakeGame
 Installation
 -------------
-'''shell
+```shell
 git clone https://github.com/gemutsruhe/SnakeGame.git
-'''
+```
