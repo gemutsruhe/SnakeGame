@@ -4,40 +4,37 @@ import java.util.ArrayList;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import java.util.Random;
-
-import javax.swing.JPanel;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class GamePlay extends JPanel{
 	StartGame startGame;
 	JFrame frame;
-	//Frame frame;
-	//JPanel panel;
+	GamePlay gamePlay;
+	Record record;
+	
+	private static int DELAY = 50;
 	static int size = 12;
 	private ArrayList<int[]> snake;
-	int[] snakeHead = {300,300};
+	int[] snakeHead = {300, 300};
+	char direction;
 	int[] apple = {0,0};
 	Timer timer;
 	Graphics g;
-	private static int DELAY = 50;
-	char direction = 'U';
+	MyKeyAdapter keyListener;
+	
+	boolean ranked;
+	String user_name;
+	
 	GamePlay(StartGame startGame, JFrame frame, boolean save){
 		this.startGame = startGame;
 		this.frame = frame;
+		this.gamePlay = this;
+		ranked = false;
+		user_name = "";
 		if(save)
 			try {
 				loadGame();
@@ -45,18 +42,36 @@ public class GamePlay extends JPanel{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		else init();
-		
-		frame.addKeyListener(new MyKeyAdapter());
+		else{
+			File file = new File("saveGame.data");
+			if(file.exists()) {
+				file.delete();
+			}
+			init();
+		}
+		keyListener = new MyKeyAdapter();
+		frame.addKeyListener(keyListener);
 		startGame();
 	}
 	
 	public void startGame() {
-		new Timer(DELAY, new ActionListener() {
+		timer = new Timer(DELAY, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				if(direction != '0') { // not in InGameMenu
+				if(ranked) { // user play get ranking
+					if(record == null) record = new Record(gamePlay); // show frame can type user name
+					else if(user_name.compareTo("") != 0) {
+						try { // save rank and back to main menu
+							saveRank();
+							startGame.showMenu();
+							timer.stop();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+				}
+				else if(direction != '0') { // not in InGameMenu
 					if(isSnakeEatApple()) {
 						growSnake();
 						moveApple();
@@ -82,14 +97,28 @@ public class GamePlay extends JPanel{
 						break;
 					}
 					
-					if(isCollision()) {
-						return ;
+					if(isCollision() && ranked == false) {
+						
+						try {
+							ranked = isRanked();
+							
+							if(ranked == false) {
+								frame.removeKeyListener(new MyKeyAdapter());
+								startGame.showMenu();
+								timer.stop();
+							}
+						} catch (NumberFormatException | IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					} else {
 						repaint();
 					}
 				}
 			}
-		}).start();
+		});
+		timer.start();
+		
 	}
 	
 	public void paint(Graphics g) {
@@ -140,20 +169,81 @@ public class GamePlay extends JPanel{
 		return false;
 	}
 	
-	private void dieSnake() throws FileNotFoundException {
+	private boolean isRanked() throws NumberFormatException, IOException {
+
 		File file = new File("Ranking.data");
-		if(file.exists()) {
-			FileInputStream fis = new FileInputStream(file);
-		} else {
-			
+		if(file.exists() == false) return true;
+		
+		FileReader fileReader = fileReader = new FileReader("Ranking.data");
+		
+		BufferedReader reader = new BufferedReader(fileReader);
+		String read;
+		int i;
+		for(i = 0; (i < 5) && (read = reader.readLine()) != null; i++) {
+			String []info = read.split(" ");
+			if(Integer.parseInt(info[1]) < snake.size()) {
+				return true;
+			}
 		}
-		startGame.showMenu();
+		if(i < 5) return true;
+		return false;
 	}
 	
-	public void setDirection(char direction) {
-		this.direction = direction;
+	private void saveRank() throws IOException {
+		File file = new File("Ranking.data");
+		if(file.exists() == false) {
+			FileOutputStream fos = new FileOutputStream(file);
+			fos.write((user_name + " " + snake.size()).getBytes());
+			fos.close();
+		} else {
+			FileReader fileReader = new FileReader("Ranking.data");
+			BufferedReader reader = new BufferedReader(fileReader);
+			String read;
+			
+			ArrayList<String> name = new ArrayList<>();
+			ArrayList<String> score = new ArrayList<>();
+			int i;
+			boolean inserted = false;
+			for(i = 0; (i < 5) && (read = reader.readLine()) != null; i++) {
+				String []info = read.split(" ");
+				if(inserted == false && Integer.parseInt(info[1]) < snake.size()) {
+					name.add(user_name);
+					score.add(Integer.toString(snake.size()));
+					inserted = true;
+					i++;
+					if(i < 5) {
+						name.add(info[0]);
+						score.add(info[1]);
+					}
+					inserted = true;
+				} else {
+					name.add(info[0]);
+					score.add(info[1]);
+				}
+			}
+			if(name.size() < 5 && inserted == false) {
+				name.add(user_name);
+				score.add(Integer.toString(snake.size()));
+			}
+			FileOutputStream fos = new FileOutputStream(file);
+			
+			for(i = 0; i < name.size(); i++) {
+				fos.write((name.get(i) + " " + score.get(i)).getBytes());
+				if(i < name.size() - 1) fos.write(("\n").getBytes());
+			}
+			
+			fos.close();
+		}
 	}
-
+	
+	public Timer getTimer() {
+		return timer;
+	}
+	
+	public char getDirection() {
+		return direction;
+	}
+	
 	public void init() { // init snake, direction, location of apple
 		snakeHead[0] = 300;
 		snakeHead[1] = 300;
@@ -163,13 +253,14 @@ public class GamePlay extends JPanel{
 		moveApple();
 	}
 	
-	public void saveGame(char direction) throws IOException {
+	public void saveGame() throws IOException {
 		File file = new File("saveGame.data");
 		FileOutputStream fos = new FileOutputStream(file);
-		fos.write(((int)direction + "\n").getBytes()); // save snake head direction
+		fos.write(((char)direction + "\n").getBytes()); // save snake head direction
 		fos.write((apple[0] + " " + apple[1] + "\n").getBytes()); // save apple location
 		for(int i = 0; i < snake.size(); i++) { // save snake location
-			fos.write((snake.get(i)[0] + " " + snake.get(i)[1] + "\n").getBytes());
+			fos.write((snake.get(i)[0] + " " + snake.get(i)[1]).getBytes());
+			if(i < snake.size() - 1) fos.write(("\n").getBytes());
 		}
 		fos.close();
 	}
@@ -178,7 +269,7 @@ public class GamePlay extends JPanel{
 		FileReader fileReader = new FileReader("saveGame.data");
 		BufferedReader reader = new BufferedReader(fileReader);
 
-		direction = (char) Integer.parseInt(reader.readLine()); // first line : direction
+		direction = reader.readLine().toCharArray()[0]; // first line : direction
 		
 		String[] location = reader.readLine().split(" "); // second line : apple location
 		apple[0] = (Integer.parseInt(location[0])); 
@@ -196,11 +287,27 @@ public class GamePlay extends JPanel{
 		snakeHead = snake.get(0); // first is snake head
 		
 		fileReader.close();
+		
+		File file = new File("saveGame.data");
+		file.delete();
+	}
+	
+	public void setUserName(String name) {
+		user_name = name;
+	}
+	
+	public MyKeyAdapter getKeyListener() {
+		return keyListener;
+	}
+	
+	public String getHead() {
+		return snakeHead[0] + " " + snakeHead[1];
 	}
 	
 	public class MyKeyAdapter extends KeyAdapter{
 		@Override
 		public void keyPressed(KeyEvent e) {
+			//System.out.println(e.getKeyCode());
 			switch(e.getKeyCode()) {
 			case KeyEvent.VK_LEFT:
 				if(direction != 'R') direction = 'L';
@@ -215,8 +322,8 @@ public class GamePlay extends JPanel{
 				if(direction != 'U') direction = 'D';
 				break;
 			case KeyEvent.VK_ESCAPE:
-				startGame.showInGameMenu(direction);
-				direction = '0';
+				timer.stop();
+				startGame.showInGameMenu();
 			}
 		}
 	}

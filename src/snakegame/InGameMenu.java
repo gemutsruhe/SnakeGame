@@ -15,26 +15,18 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class InGameMenu {
-	private StartGame startGame;
-	private JFrame frame;
-	private GamePlay gamePlayPanel;
+public class InGameMenu extends JPanel{
 	private JLabel title;
 	private JButton resume;
 	private JButton restart;
 	private JButton save;
 	private JButton exit;
 	
-	InGameMenu(StartGame startGame, JFrame frame, GamePlay gamePlayPanel, char direction){
-		this.startGame = startGame;
-		this.frame = frame;
-		this.gamePlayPanel = gamePlayPanel;
-		Frame inGameMenu = new Frame();
-		inGameMenu.setSize(300,300);
-		inGameMenu.setLocationRelativeTo(null);
-		JPanel panel = new JPanel();
-		
-		panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
+	InGameMenu(StartGame startGame, JFrame frame, GamePlay gamePlayPanel){
+
+		this.setSize(300, 300);
+		this.setBounds(150, 150, 450, 450);
+		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 		title = new JLabel("In Game Menu");
 		resume = new JButton("Resume Game");
@@ -44,34 +36,30 @@ public class InGameMenu {
 		
 		title.setFont(new Font("Serif",Font.PLAIN,40));
 		
-		title.setAlignmentX(panel.CENTER_ALIGNMENT);
-		resume.setAlignmentX(panel.CENTER_ALIGNMENT);
-		restart.setAlignmentX(panel.CENTER_ALIGNMENT);
-		save.setAlignmentX(panel.CENTER_ALIGNMENT);
-		exit.setAlignmentX(panel.CENTER_ALIGNMENT);
+		title.setAlignmentX(this.CENTER_ALIGNMENT);
+		resume.setAlignmentX(this.CENTER_ALIGNMENT);
+		restart.setAlignmentX(this.CENTER_ALIGNMENT);
+		save.setAlignmentX(this.CENTER_ALIGNMENT);
+		exit.setAlignmentX(this.CENTER_ALIGNMENT);
 		
-		panel.add(Box.createVerticalGlue());
-		panel.add(title);
-		panel.add(Box.createRigidArea(new Dimension(0,20)));
-		panel.add(resume);
-		panel.add(Box.createRigidArea(new Dimension(0,20)));
-		panel.add(restart);
-		panel.add(Box.createRigidArea(new Dimension(0,20)));
-		panel.add(save);
-		panel.add(Box.createRigidArea(new Dimension(0,20)));
-		panel.add(exit);
-		panel.add(Box.createVerticalGlue());
-		
-		inGameMenu.add(panel);
-		inGameMenu.setVisible(true);
+		this.add(Box.createVerticalGlue());
+		this.add(title);
+		this.add(Box.createRigidArea(new Dimension(0,20)));
+		this.add(resume);
+		this.add(Box.createRigidArea(new Dimension(0,20)));
+		this.add(restart);
+		this.add(Box.createRigidArea(new Dimension(0,20)));
+		this.add(save);
+		this.add(Box.createRigidArea(new Dimension(0,20)));
+		this.add(exit);
+		this.add(Box.createVerticalGlue());
 		
 		resume.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				gamePlayPanel.setDirection(direction);
-				inGameMenu.dispose();
+				startGame.resumeGame();
 			}
 		});
 		restart.addActionListener(new ActionListener() {
@@ -79,8 +67,8 @@ public class InGameMenu {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				gamePlayPanel.init(); // initialize direction, apple, snake
-				inGameMenu.dispose(); // frame exit
+				startGame.restartGame();
+				return ;
 			}
 		});
 		save.addActionListener(new ActionListener() {
@@ -88,14 +76,8 @@ public class InGameMenu {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				try {
-					gamePlayPanel.saveGame(direction); // save game
-					inGameMenu.dispose(); // frame exit
-					startGame.showMenu(); // back to main menu
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				startGame.saveGame(); // save game and back to main menu
+				startGame.showMenu();
 			}
 		});
 		exit.addActionListener(new ActionListener() {
@@ -103,17 +85,10 @@ public class InGameMenu {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				System.exit(0); // exit : game exit
+				startGame.exitInGameMenu();
+				return ;
 			}
 		});
-		
-		frame.addKeyListener(new MyKeyAdapter());
 	}
 	
-	public class MyKeyAdapter extends KeyAdapter{
-		@Override
-		public void keyPressed(KeyEvent e) {
-			
-		}
-	}
 }
