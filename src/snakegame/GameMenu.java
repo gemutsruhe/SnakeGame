@@ -29,6 +29,7 @@ public class GameMenu extends JPanel{
 	
 	public StartGame getStartGame() {
 		return startGame;
+
 	}
 	
 	public Ranking getRankingMenu() {
