@@ -35,16 +35,16 @@ public class GamePlay extends JPanel{
 		this.gamePlay = this;
 		ranked = false;
 		user_name = "";
-		if(save)
+		if(save) // selected load game on main menu
 			try {
-				loadGame();
+				loadGame(); // load game
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		else{
-			File file = new File("saveGame.data");
-			if(file.exists()) {
+			File file = new File("saveGame.data"); 
+			if(file.exists()) { // discard save data
 				file.delete();
 			}
 			init();
@@ -84,28 +84,28 @@ public class GamePlay extends JPanel{
 					
 					switch(direction) { // move snake head
 					case 'L':
-						snakeHead[0] -= size;
+						snakeHead[0] -= size; // move to left
 						break;
 					case 'R':
-						snakeHead[0] += size;
+						snakeHead[0] += size; // move to right
 						break;
 					case 'D':
-						snakeHead[1] += size;
+						snakeHead[1] += size; // move to down
 						break;
 					case 'U':
-						snakeHead[1] -= size;
+						snakeHead[1] -= size; // move to up
 						break;
 					}
 					
-					if(isCollision() && ranked == false) {
+					if(isCollision() && ranked == false) { // die snake, not ranked
 						
 						try {
-							ranked = isRanked();
+							ranked = isRanked(); // determine ranking
 							
-							if(ranked == false) {
+							if(ranked == false) { // 
 								frame.removeKeyListener(new MyKeyAdapter());
-								startGame.showMenu();
-								timer.stop();
+								startGame.showMenu(); // back to menu
+								timer.stop(); // stop game
 							}
 						} catch (NumberFormatException | IOException e1) {
 							// TODO Auto-generated catch block
@@ -147,7 +147,7 @@ public class GamePlay extends JPanel{
 		}
 	}
 	
-	private void moveApple() {
+	private void moveApple() { // move apple random location
 		apple[0] = (int) (Math.random() * (600 / size)) * size;
 		apple[1] = (int) (Math.random() * (600 / size)) * size;
 	}
@@ -181,17 +181,17 @@ public class GamePlay extends JPanel{
 		int i;
 		for(i = 0; (i < 5) && (read = reader.readLine()) != null; i++) {
 			String []info = read.split(" ");
-			if(Integer.parseInt(info[1]) < snake.size()) {
+			if(Integer.parseInt(info[1]) < snake.size()) { // ranked in 5
 				return true;
 			}
 		}
-		if(i < 5) return true;
+		if(i < 5) return true; // saved rank number lower than 5
 		return false;
 	}
 	
 	private void saveRank() throws IOException {
 		File file = new File("Ranking.data");
-		if(file.exists() == false) {
+		if(file.exists() == false) { // first game
 			FileOutputStream fos = new FileOutputStream(file);
 			fos.write((user_name + " " + snake.size()).getBytes());
 			fos.close();
@@ -204,7 +204,7 @@ public class GamePlay extends JPanel{
 			ArrayList<String> score = new ArrayList<>();
 			int i;
 			boolean inserted = false;
-			for(i = 0; (i < 5) && (read = reader.readLine()) != null; i++) {
+			for(i = 0; (i < 5) && (read = reader.readLine()) != null; i++) { // get ranked user name and score
 				String []info = read.split(" ");
 				if(inserted == false && Integer.parseInt(info[1]) < snake.size()) {
 					name.add(user_name);
@@ -227,7 +227,7 @@ public class GamePlay extends JPanel{
 			}
 			FileOutputStream fos = new FileOutputStream(file);
 			
-			for(i = 0; i < name.size(); i++) {
+			for(i = 0; i < name.size(); i++) { // save ranking
 				fos.write((name.get(i) + " " + score.get(i)).getBytes());
 				if(i < name.size() - 1) fos.write(("\n").getBytes());
 			}

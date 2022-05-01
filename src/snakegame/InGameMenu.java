@@ -51,7 +51,7 @@ public class InGameMenu extends JPanel{
 		this.add(exit);
 		this.add(Box.createVerticalGlue());
 		
-		resume.addActionListener(new ActionListener() {
+		resume.addActionListener(new ActionListener() { // resume game
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -59,7 +59,7 @@ public class InGameMenu extends JPanel{
 				startGame.resumeGame();
 			}
 		});
-		restart.addActionListener(new ActionListener() {
+		restart.addActionListener(new ActionListener() { // restart game
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -68,7 +68,7 @@ public class InGameMenu extends JPanel{
 				return ;
 			}
 		});
-		save.addActionListener(new ActionListener() {
+		save.addActionListener(new ActionListener() { // save game and back to main menu
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -77,7 +77,7 @@ public class InGameMenu extends JPanel{
 				startGame.showMenu();
 			}
 		});
-		exit.addActionListener(new ActionListener() {
+		exit.addActionListener(new ActionListener() { // back to main menu
 
 			@Override
 			public void actionPerformed(ActionEvent e) {

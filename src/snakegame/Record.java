@@ -27,10 +27,10 @@ public class Record{
 		
 		panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
 
-		messageField = new JLabel("Enter palyer's name");
-		nameField = new JTextField();
+		messageField = new JLabel("Enter palyer's name"); // guide message
+		nameField = new JTextField(); // typing your name
 		
-		messageField.setFont(new Font("Serif",Font.PLAIN,20));
+		messageField.setFont(new Font("Serif",Font.PLAIN,25));
 		nameField.addKeyListener(new MyKeyAdapter());
 		
 		messageField.setAlignmentX(panel.CENTER_ALIGNMENT);
@@ -38,7 +38,7 @@ public class Record{
 		
 		panel.add(Box.createVerticalGlue());
 		panel.add(messageField);
-		panel.add(Box.createRigidArea(new Dimension(0,15)));
+		panel.add(Box.createRigidArea(new Dimension(0,10)));
 		panel.add(nameField);
 		
 		ranking.add(panel);
@@ -51,10 +51,10 @@ public class Record{
 		@Override
 		public void keyPressed(KeyEvent e) {
 			switch(e.getKeyCode()) {
-			case KeyEvent.VK_ENTER:
+			case KeyEvent.VK_ENTER: // when enter_key pressed, name is not null string then use name 
 				if(nameField.getText().compareTo("") != 0) {
-					name = nameField.getText();
-					gamePlay.setUserName(name);
+					name = nameField.getText(); // get name
+					gamePlay.setUserName(name); // use name
 					ranking.dispose();
 				}
 			}
