@@ -107,19 +107,8 @@ public class MainMenu extends JPanel{
 		});
 	}
 	private	void newRank() throws IOException {
-		FileReader fileReader = new FileReader("Ranking.data");
-		BufferedReader reader = new BufferedReader(fileReader);
-		String read;
-		String[] names = new String[5];
-		int[] scores=new int[5];
-		int i=0;
-		while((read=reader.readLine())!=null) {
-			String[] content = read.split(" ");
-			names[i]=content[0];
-			scores[i] = Integer.parseInt(content[1]);
-			i++;
-		}
+		
 		Ranking ranking = gamemenu.getRankingMenu();
-		ranking.setRank(names,scores);
+		ranking.getRanking();
 	}
 }

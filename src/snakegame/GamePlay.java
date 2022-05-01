@@ -179,13 +179,13 @@ public class GamePlay extends JPanel{
 		BufferedReader reader = new BufferedReader(fileReader);
 		String read;
 		int i;
-		for(i = 0; (i < 5) && (read = reader.readLine()) != null; i++) {
+		for(i = 0; (i < 15) && (read = reader.readLine()) != null; i++) {
 			String []info = read.split(" ");
-			if(Integer.parseInt(info[1]) < snake.size()) { // ranked in 5
+			if(Integer.parseInt(info[1]) < snake.size()) { // ranked in 15
 				return true;
 			}
 		}
-		if(i < 5) return true; // saved rank number lower than 5
+		if(i < 15) return true; // saved rank number lower than 15
 		return false;
 	}
 	
@@ -204,14 +204,14 @@ public class GamePlay extends JPanel{
 			ArrayList<String> score = new ArrayList<>();
 			int i;
 			boolean inserted = false;
-			for(i = 0; (i < 5) && (read = reader.readLine()) != null; i++) { // get ranked user name and score
+			for(i = 0; (i < 15) && (read = reader.readLine()) != null; i++) { // get ranked user name and score
 				String []info = read.split(" ");
 				if(inserted == false && Integer.parseInt(info[1]) < snake.size()) {
 					name.add(user_name);
 					score.add(Integer.toString(snake.size()));
 					inserted = true;
 					i++;
-					if(i < 5) {
+					if(i < 15) {
 						name.add(info[0]);
 						score.add(info[1]);
 					}
@@ -221,7 +221,7 @@ public class GamePlay extends JPanel{
 					score.add(info[1]);
 				}
 			}
-			if(name.size() < 5 && inserted == false) {
+			if(name.size() < 15 && inserted == false) {
 				name.add(user_name);
 				score.add(Integer.toString(snake.size()));
 			}

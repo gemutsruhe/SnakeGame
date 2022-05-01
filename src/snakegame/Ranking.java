@@ -22,6 +22,8 @@ public class Ranking extends JPanel{
 	private JPanel rankPanel;
 	private JButton back;
 	
+	String[] names;
+	int[] scores;
 	
 	Ranking(GameMenu gamemenu){
 		
@@ -36,21 +38,37 @@ public class Ranking extends JPanel{
 		
 		rankPanel=new JPanel();
 		rankPanel.setAlignmentX(CENTER_ALIGNMENT);
-		rankPanel.setLayout(new GridLayout(6,3));
+		rankPanel.setLayout(new GridLayout(16,3));
 		Dimension d = gamemenu.getFrame().getBounds().getSize();
 		d.width/=2;
-		d.height/=4;
+		d.height = d.height / 6 * 5;
 		rankPanel.setMaximumSize(d);
 		
 		
 		rankPanel.add(new JLabel("Rank"));
 		rankPanel.add(new JLabel("Name"));
 		rankPanel.add(new JLabel("Score"));
-		add(rankPanel);		
+		
+		for(int i = 0; i < 15; i++) {
+			rankPanel.add(new JLabel(Integer.toString(i+1)));
+			rankPanel.add(new JLabel(""));
+			rankPanel.add(new JLabel(""));
+		}
+		
+		add(rankPanel);
+		
+		names = new String[15];
+		scores=new int[15];
+		
+		try {
+			getRanking();
+		} catch (NumberFormatException | IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		back=new JButton("Back");
 		back.setAlignmentX(CENTER_ALIGNMENT);
-		
 		
 		back.addActionListener(new ActionListener() {
 
@@ -61,15 +79,20 @@ public class Ranking extends JPanel{
 			}			
 		});
 		
-		
 		add(back);
 	}
-	public void setRank(String[] names, int[] scores) {
-		for(int i=0;i<5;i++) {
-			rankPanel.add(new JLabel(Integer.toString(i+1)));
-			rankPanel.add(new JLabel(names[i]));
-			rankPanel.add(new JLabel(Integer.toString(scores[i])));
+	public void getRanking() throws NumberFormatException, IOException {
+		FileReader fileReader = new FileReader("Ranking.data");
+		BufferedReader reader = new BufferedReader(fileReader);
+		String read;
+		int i=0;
+		while((read=reader.readLine())!=null) {
+			String[] content = read.split(" ");
+			i++;
+			((JLabel)rankPanel.getComponent(1 + 3 * i)).setText(content[0]);
+			((JLabel)rankPanel.getComponent(2 + 3 * i)).setText(content[1]);
 		}
 	}
+	
 	
 }
