@@ -22,9 +22,7 @@ public class Ranking extends JPanel{
 	private JPanel rankPanel;
 	private JButton back;
 	
-	private JLabel name;
-	private JLabel score;
-	private int maxScore;
+	
 	Ranking(GameMenu gamemenu){
 		
 		this.gamemenu=gamemenu;
@@ -38,21 +36,16 @@ public class Ranking extends JPanel{
 		
 		rankPanel=new JPanel();
 		rankPanel.setAlignmentX(CENTER_ALIGNMENT);
-		rankPanel.setLayout(new GridLayout(2,3));
+		rankPanel.setLayout(new GridLayout(6,3));
 		Dimension d = gamemenu.getFrame().getBounds().getSize();
 		d.width/=2;
 		d.height/=4;
 		rankPanel.setMaximumSize(d);
 		
-		name=new JLabel("player_name");
-		score = new JLabel("0");
 		
 		rankPanel.add(new JLabel("Rank"));
 		rankPanel.add(new JLabel("Name"));
 		rankPanel.add(new JLabel("Score"));
-		rankPanel.add(new JLabel("Top"));
-		rankPanel.add(name);
-		rankPanel.add(score);
 		add(rankPanel);		
 		
 		back=new JButton("Back");
@@ -71,12 +64,11 @@ public class Ranking extends JPanel{
 		
 		add(back);
 	}
-	public void setRank(String newName, int newScore) {
-		int nowscore = Integer.valueOf(score.getText()).intValue();
-		if(newScore>=nowscore) {
-			
-			name.setText(newName);
-			score.setText(Integer.toString(newScore));
+	public void setRank(String[] names, int[] scores) {
+		for(int i=0;i<5;i++) {
+			rankPanel.add(new JLabel(Integer.toString(i+1)));
+			rankPanel.add(new JLabel(names[i]));
+			rankPanel.add(new JLabel(Integer.toString(scores[i])));
 		}
 	}
 	

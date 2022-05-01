@@ -120,6 +120,6 @@ public class MainMenu extends JPanel{
 			i++;
 		}
 		Ranking ranking = gamemenu.getRankingMenu();
-		//ranking.setRank(names,scores);
+		ranking.setRank(names,scores);
 	}
 }
