@@ -27,7 +27,6 @@ public class MainMenu extends JPanel{
 	private JButton load;
 	private JButton rank;
 	private JButton exit;
-	private JTextField tf;
 	
 	MainMenu(GameMenu gamemenu){
 		this.gamemenu = gamemenu;
@@ -108,15 +107,19 @@ public class MainMenu extends JPanel{
 		});
 	}
 	private	void newRank() throws IOException {
-		FileReader fileReader = new FileReader("saveGame.data");
-		BufferedReader reader=new BufferedReader(fileReader);
-		String name = tf.getText();
+		FileReader fileReader = new FileReader("Ranking.data");
+		BufferedReader reader = new BufferedReader(fileReader);
 		String read;
-		int cnt=-3;
+		String[] names = new String[5];
+		int[] scores=new int[5];
+		int i=0;
 		while((read=reader.readLine())!=null) {
-			cnt++;
+			String[] content = read.split(" ");
+			names[i]=content[0];
+			scores[i] = Integer.parseInt(content[1]);
+			i++;
 		}
-		Ranking rankmenu = gamemenu.getRankingMenu();
-		rankmenu.setRank(name, cnt);
+		Ranking ranking = gamemenu.getRankingMenu();
+		//ranking.setRank(names,scores);
 	}
 }
