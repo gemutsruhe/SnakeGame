@@ -54,7 +54,7 @@ public class Record{
 			case KeyEvent.VK_ENTER: // when enter_key pressed, name is not null string then use name 
 				if(nameField.getText().compareTo("") != 0) {
 					name = nameField.getText(); // get name
-					gamePlay.setUserName(name); // use name
+					((SoloPlay) gamePlay).setUserName(name); // use name
 					ranking.dispose();
 				}
 			}

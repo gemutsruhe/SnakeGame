@@ -33,7 +33,7 @@ public class StartGame {
 	public void newGame() {
 		gameMenu.setVisible(false);
 		inGameMenu.setVisible(false);
-		gamePlay = new GamePlay(this, frame, false);
+		gamePlay = new SoloPlay(this, frame, false);
 		frame.add(gamePlay);
 		frame.requestFocus();
 		frame.setVisible(true);
@@ -52,7 +52,7 @@ public class StartGame {
 	public void restartGame() {
 		gameMenu.setVisible(false);
 		inGameMenu.setVisible(false);
-		gamePlay = new GamePlay(this, frame, false);
+		gamePlay = new SoloPlay(this, frame, false);
 		frame.add(gamePlay);
 		frame.requestFocus();
 		frame.setVisible(true);
@@ -62,7 +62,7 @@ public class StartGame {
 		gameMenu.setVisible(false);
 		inGameMenu.setVisible(false);
 		gamePlay = null;
-		gamePlay = new GamePlay(this, frame, true);
+		gamePlay = new SoloPlay(this, frame, true);
 		frame.add(gamePlay);
 		frame.requestFocus();
 		frame.setVisible(true);
@@ -79,7 +79,7 @@ public class StartGame {
 	
 	public void saveGame() {
 		try {
-			gamePlay.saveGame();
+			((SoloPlay) gamePlay).saveGame();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
