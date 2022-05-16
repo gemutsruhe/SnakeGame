@@ -108,10 +108,6 @@ public class SoloPlay extends GamePlay{
 		}
 	}
 	
-	public Timer getTimer() {
-		return timer;
-	}
-	
 	public char getDirection() {
 		return direction;
 	}
