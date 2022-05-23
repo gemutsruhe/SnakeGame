@@ -53,9 +53,9 @@ public abstract class GamePlay extends JPanel{
 
 	protected abstract void drawApple();
 	
-	protected abstract boolean isSnakeEatApple();
+	protected abstract boolean isSnakeEatApple(int[] snakeHead, int[] apple);
 	
-	protected abstract void moveApple(); // move apple random location
+	protected abstract void moveApple(int []apple); // move apple random location
 	
 	protected abstract boolean isCollision();
 	
@@ -82,6 +82,4 @@ public abstract class GamePlay extends JPanel{
 			keyReact(e);
 		}
 	}
-	
-	
 }

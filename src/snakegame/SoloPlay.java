@@ -122,7 +122,7 @@ public class SoloPlay extends GamePlay{
 		snake = new ArrayList<int[]>();
 		snake.add(snakeHead);
 		direction = 'U';
-		moveApple();
+		moveApple(apple);
 	}
 	
 	public void saveGame() throws IOException {
@@ -189,9 +189,9 @@ public class SoloPlay extends GamePlay{
 			}
 		}
 		else if(direction != '0') { // not in InGameMenu
-			if(isSnakeEatApple()) {
+			if(isSnakeEatApple(snakeHead, apple)) {
 				growSnake(snake);
-				moveApple();
+				moveApple(apple);
 			}
 			
 			for(int i = snake.size() - 1; i >= 1; i--) { // move snake trunk
@@ -250,7 +250,7 @@ public class SoloPlay extends GamePlay{
 	}
 
 	@Override
-	protected boolean isSnakeEatApple() {
+	protected boolean isSnakeEatApple(int[] snakeHead, int[] apple) {
 		// TODO Auto-generated method stub
 		if(snakeHead[0] == apple[0] && snakeHead[1] == apple[1]) {
 			return true;
@@ -260,7 +260,7 @@ public class SoloPlay extends GamePlay{
 	}
 
 	@Override
-	protected void moveApple() {
+	protected void moveApple(int []apple) {
 		// TODO Auto-generated method stub
 		apple[0] = (int) (Math.random() * (600 / size)) * size;
 		apple[1] = (int) (Math.random() * (600 / size)) * size;

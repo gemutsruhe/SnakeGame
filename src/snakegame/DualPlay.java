@@ -113,14 +113,14 @@ public class DualPlay extends GamePlay{
 	}
 
 	@Override
-	protected boolean isSnakeEatApple(int []snakeHead, int[] apple) {
+	protected boolean isSnakeEatApple(int[] snakeHead, int[] apple) {
 		// TODO Auto-generated method stub
 		if(snakeHead[0] == apple[0] && snakeHead[1] == apple[1]) return true;
 		return false;
 	}
 	
 	@Override
-	protected void moveApple(int []apple) {
+	protected void moveApple(int[] apple) {
 		// TODO Auto-generated method stub
 		apple[0] = (int) (Math.random() * (1200 / size)) * size;
 		apple[1] = (int) (Math.random() * (600 / size)) * size;
