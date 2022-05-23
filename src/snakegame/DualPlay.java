@@ -30,13 +30,13 @@ public class DualPlay extends GamePlay{
 	}
 
 	@Override
-	protected boolean isSnakeEatApple() {
+	protected boolean isSnakeEatApple(int[] snakeHead, int[] apple) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	protected void moveApple() {
+	protected void moveApple(int[] apple) {
 		// TODO Auto-generated method stub
 		
 	}
