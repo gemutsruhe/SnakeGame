@@ -18,7 +18,6 @@ public class InGameMenu extends JPanel{
 	private JButton restart;
 	private JButton save;
 	private JButton exit;
-	
 	InGameMenu(StartGame startGame, JFrame frame, GamePlay gamePlayPanel){
 
 		this.setSize(300, 300);
@@ -46,17 +45,24 @@ public class InGameMenu extends JPanel{
 		this.add(Box.createRigidArea(new Dimension(0,20)));
 		this.add(restart);
 		this.add(Box.createRigidArea(new Dimension(0,20)));
-		this.add(save);
-		this.add(Box.createRigidArea(new Dimension(0,20)));
+		if(gamePlayPanel.getClass().getSimpleName().equals("SoloPlay")) {
+			this.add(save);
+			this.add(Box.createRigidArea(new Dimension(0,20)));
+		}
 		this.add(exit);
 		this.add(Box.createVerticalGlue());
 		
 		resume.addActionListener(new ActionListener() { // resume game
-
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				if(gamePlayPanel.getClass().getSimpleName().equals("DualPlay")) {
+					frame.setSize(new Dimension(1200, 600));
+					frame.setLocationRelativeTo(null);
+				}
 				startGame.resumeGame();
+				
 			}
 		});
 		restart.addActionListener(new ActionListener() { // restart game
@@ -64,6 +70,8 @@ public class InGameMenu extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.setSize(new Dimension(1200, 600));
+				frame.setLocationRelativeTo(null);
 				startGame.restartGame();
 				return ;
 			}

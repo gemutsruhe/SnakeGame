@@ -81,7 +81,7 @@ public class AutoPlay extends GamePlay{
 	}
 
 	@Override
-	protected boolean isSnakeEatApple() {
+	protected boolean isSnakeEatApple(int[] snakeHead, int[] apple) {
 		// TODO Auto-generated method stub
 		if(snakeHead[0] == apple[0] && snakeHead[1] == apple[1]) {
 			return true;
@@ -91,7 +91,7 @@ public class AutoPlay extends GamePlay{
 	}
 
 	@Override
-	protected void moveApple() {
+	protected void moveApple(int[] apple) {
 		// TODO Auto-generated method stub
 		apple[0] = (int) (Math.random() * (600 / size)) * size;
 		apple[1] = (int) (Math.random() * (600 / size)) * size;

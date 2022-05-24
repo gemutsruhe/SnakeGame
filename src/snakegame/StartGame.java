@@ -17,6 +17,7 @@ public class StartGame {
 	StartGame(){
 		frame = new Frame();
 		gameMenu = new GameMenu(this, frame);
+		gamePlay = new AutoPlay(this, frame);
 		inGameMenu = new InGameMenu(this, frame, gamePlay);
 		frame.add(gameMenu);
 		showMenu();
