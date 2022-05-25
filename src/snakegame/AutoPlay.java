@@ -22,9 +22,9 @@ public class AutoPlay extends GamePlay{
 	protected void repaintPanel() {
 		// TODO Auto-generated method stub
 		if(direction != '0') { // not in InGameMenu
-			if(isSnakeEatApple()) {
+			if(isSnakeEatApple(snakeHead, apple)) {
 				growSnake(snake);
-				moveApple();
+				moveApple(apple);
 			}
 			
 			AutoPlayAlgorithm();
@@ -119,7 +119,7 @@ public class AutoPlay extends GamePlay{
 		snake = new ArrayList<int[]>();
 		snake.add(snakeHead);
 		direction = 'U';
-		moveApple();
+		moveApple(apple);
 	}
 
 	@Override
