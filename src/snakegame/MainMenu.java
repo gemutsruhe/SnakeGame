@@ -23,7 +23,9 @@ public class MainMenu extends JPanel{
 	private GameMenu gamemenu;
 	
 	private JLabel title;
-	private JButton start;
+	private JButton singlePlay;
+	private JButton dualPlay;
+	private JButton autoPlay;
 	private JButton load;
 	private JButton rank;
 	private JButton exit;
@@ -34,15 +36,19 @@ public class MainMenu extends JPanel{
 		setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 		
 		title= new JLabel("Snake Game");
-		start = new JButton("Start");
-		load = new JButton("Load");
-		rank = new JButton("Rank");
-		exit = new JButton("Exit");
+		singlePlay = new JButton("SINGLE PLAY");
+		dualPlay = new JButton("DUAL PLAY");
+		autoPlay = new JButton("AUTO PLAY");
+		load = new JButton("LOAD");
+		rank = new JButton("RANKKING");
+		exit = new JButton("EXIT");
 		
 		title.setFont(new Font("Serif",Font.PLAIN,40));
 		
 		title.setAlignmentX(CENTER_ALIGNMENT);
-		start.setAlignmentX(CENTER_ALIGNMENT);
+		singlePlay.setAlignmentX(CENTER_ALIGNMENT);
+		dualPlay.setAlignmentX(CENTER_ALIGNMENT);
+		autoPlay.setAlignmentX(CENTER_ALIGNMENT);
 		load.setAlignmentX(CENTER_ALIGNMENT);
 		rank.setAlignmentX(CENTER_ALIGNMENT);
 		exit.setAlignmentX(CENTER_ALIGNMENT);
@@ -50,7 +56,11 @@ public class MainMenu extends JPanel{
 		add(Box.createVerticalGlue());
 		add(title);
 		add(Box.createRigidArea(new Dimension(0,20)));
-		add(start);
+		add(singlePlay);
+		add(Box.createRigidArea(new Dimension(0,20)));
+		add(dualPlay);
+		add(Box.createRigidArea(new Dimension(0,20)));
+		add(autoPlay);
 		add(Box.createRigidArea(new Dimension(0,20)));
 		add(load);
 		add(Box.createRigidArea(new Dimension(0,20)));
@@ -59,14 +69,29 @@ public class MainMenu extends JPanel{
 		add(exit);
 		add(Box.createVerticalGlue());
 		
-		start.addActionListener(new ActionListener() {
+		singlePlay.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				StartGame sg = gamemenu.getStartGame();
-				sg.newGame();
+				sg.newSinglePlay();
 			}
-			
+		});
+		dualPlay.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				StartGame sg = gamemenu.getStartGame();
+				sg.newDualPlay();
+			}
+		});
+		autoPlay.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				StartGame sg = gamemenu.getStartGame();
+				sg.newAutoPlay();
+			}
 		});
 		load.addActionListener(new ActionListener() {
 			
@@ -75,7 +100,7 @@ public class MainMenu extends JPanel{
 				File file = new File("saveGame.data");
 				if(file.exists() == true) {
 					StartGame sg = gamemenu.getStartGame();
-					sg.loadGame();
+					sg.loadSingleGame();
 				}
 			}
 			
