@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class AutoPlay extends GamePlay{
 	
@@ -50,7 +51,7 @@ public class AutoPlay extends GamePlay{
 			}
 			
 			if(isCollision()) { // die snake
-				
+				JOptionPane.showMessageDialog(null, "score : " + snake.size(), "Game Result", JOptionPane.INFORMATION_MESSAGE);
 				frame.removeKeyListener(new MyKeyAdapter());
 				startGame.showMenu(); // back to menu
 				timer.stop(); // stop game

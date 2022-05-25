@@ -176,6 +176,7 @@ public class SoloPlay extends GamePlay{
 			else if(user_name.compareTo("") != 0) {
 				try { // save rank and back to main menu
 					saveRank();
+					JOptionPane.showMessageDialog(null, "Score : " + snake.size(), "Game Result", JOptionPane.INFORMATION_MESSAGE);
 					startGame.showMenu();
 					timer.stop();
 				} catch (IOException e1) {
@@ -216,6 +217,7 @@ public class SoloPlay extends GamePlay{
 					ranked = isRanked(); // determine ranking
 					
 					if(ranked == false) { // 
+						JOptionPane.showMessageDialog(null, "score : " + snake.size(), "Game Result", JOptionPane.INFORMATION_MESSAGE);
 						frame.removeKeyListener(new MyKeyAdapter());
 						startGame.showMenu(); // back to menu
 						timer.stop(); // stop game

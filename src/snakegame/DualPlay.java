@@ -60,7 +60,7 @@ public class DualPlay extends GamePlay{
 			if(victory != 3) {
 				JOptionPane.showMessageDialog(null, "player" + victory + " won the game", "game result", JOptionPane.INFORMATION_MESSAGE);
 			} else {
-				JOptionPane.showMessageDialog(null, "draw a game", "game result", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "draw a game", "Game Result", JOptionPane.INFORMATION_MESSAGE);
 			}
 			
 			frame.removeKeyListener(new MyKeyAdapter());
