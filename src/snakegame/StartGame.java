@@ -18,20 +18,19 @@ public class StartGame {
 		frame = new Frame();
 		gameMenu = new GameMenu(this, frame);
 		gamePlay = new AutoPlay(this, frame);
-		inGameMenu = new InGameMenu(this, frame, gamePlay);
+		inGameMenu = new InGameMenu(this, frame);
 		frame.add(gameMenu);
 		showMenu();
 	}
 	
 	public void showMenu() {
 		inGameMenu.setVisible(false);
-		if(gamePlay != null) gamePlay.setVisible(false);
+		gamePlay.setVisible(false);
 		gameMenu.setVisible(true);
-
 		frame.setVisible(true);
 	}
 	
-	public void singlePlay() {
+	public void newSinglePlay() {
 		gameMenu.setVisible(false);
 		inGameMenu.setVisible(false);
 		gamePlay = new SoloPlay(this, frame, false);
@@ -40,7 +39,7 @@ public class StartGame {
 		frame.setVisible(true);
 	}
 	
-	public void dualPlay() {
+	public void newDualPlay() {
 		gameMenu.setVisible(false);
 		inGameMenu.setVisible(false);
 		gamePlay = new DualPlay(this, frame);
@@ -49,7 +48,7 @@ public class StartGame {
 		frame.setVisible(true);
 	}
 	
-	public void autoPlay() {
+	public void newAutoPlay() {
 		gameMenu.setVisible(false);
 		inGameMenu.setVisible(false);
 		gamePlay = new AutoPlay(this, frame);
@@ -86,7 +85,6 @@ public class StartGame {
 	public void loadSinglePlay() {
 		gameMenu.setVisible(false);
 		inGameMenu.setVisible(false);
-		gamePlay = null;
 		gamePlay = new SoloPlay(this, frame, true);
 		frame.add(gamePlay);
 		frame.requestFocus();
@@ -98,6 +96,7 @@ public class StartGame {
 		gamePlay.setVisible(false);
 		frame.add(inGameMenu);
 		inGameMenu.setVisible(true);
+		inGameMenu.setSaveVisible(gamePlay.getClass().getSimpleName());
 		frame.setVisible(true);
 	}
 	
@@ -113,6 +112,12 @@ public class StartGame {
 	
 	public void exitInGameMenu() {
 		inGameMenu.setVisible(false);
+		gamePlay.setVisible(false);
 		gameMenu.setVisible(true);
+		frame.setVisible(true);
+	}
+	
+	public GamePlay getGamePlay() {
+		return gamePlay;
 	}
 }

@@ -100,7 +100,7 @@ public class MainMenu extends JPanel{
 				File file = new File("saveGame.data");
 				if(file.exists() == true) {
 					StartGame sg = gamemenu.getStartGame();
-					sg.loadSingleGame();
+					sg.loadSinglePlay();
 				}
 			}
 			
