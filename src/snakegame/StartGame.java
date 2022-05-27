@@ -17,7 +17,6 @@ public class StartGame {
 	StartGame(){
 		frame = new Frame();
 		gameMenu = new GameMenu(this, frame);
-		gamePlay = new AutoPlay(this, frame);
 		inGameMenu = new InGameMenu(this, frame);
 		frame.add(gameMenu);
 		showMenu();
@@ -25,7 +24,7 @@ public class StartGame {
 	
 	public void showMenu() {
 		inGameMenu.setVisible(false);
-		gamePlay.setVisible(false);
+		if(gamePlay != null) gamePlay.setVisible(false);
 		gameMenu.setVisible(true);
 		frame.setVisible(true);
 	}

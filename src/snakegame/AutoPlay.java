@@ -16,6 +16,7 @@ public class AutoPlay extends GamePlay{
 	
 	AutoPlay(StartGame startGame, JFrame frame) {
 		super(startGame, frame);
+		init();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -51,11 +52,11 @@ public class AutoPlay extends GamePlay{
 			}
 			
 			if(isCollision()) { // die snake
+				//timer.stop(); // stop game
 				JOptionPane.showMessageDialog(null, "score : " + snake.size(), "Game Result", JOptionPane.INFORMATION_MESSAGE);
 				frame.removeKeyListener(new MyKeyAdapter());
 				startGame.showMenu(); // back to menu
 				timer.stop(); // stop game
-				
 			} else {
 				repaint();
 			}
@@ -63,6 +64,76 @@ public class AutoPlay extends GamePlay{
 	}
 	
 	private void AutoPlayAlgorithm() {
+		int count = 0;
+		char beforeDirection = direction;
+		while(true) {
+			count++;
+			if(count == 4) break;
+			if(direction == 'U'){
+				if(apple[1] < snakeHead[1]) {
+					for(int i = 0; i < snake.size() - 1; i++) {
+						if(snake.get(i)[0] == snakeHead[0] && snake.get(i)[1] == snakeHead[1] - size) {
+							if(beforeDirection != 'L') direction = 'R';
+							else direction = 'D';
+							break;
+						} else continue;
+					}
+					break;
+				} else {
+					if(beforeDirection != 'L') direction = 'R';
+					else direction = 'D';
+				}
+			}
+			
+			if(direction == 'R') {
+				if(apple[0] > snakeHead[0]) {
+					for(int i = 0; i < snake.size() - 1; i++) {
+						if(snake.get(i)[0] == snakeHead[0] + size && snake.get(i)[1] == snakeHead[1]) {
+							if(beforeDirection != 'U') direction = 'D';
+							else direction = 'L';
+							break;
+						} else continue;
+					}
+					break;
+				} else {
+					if(beforeDirection != 'U') direction = 'D';
+					else direction = 'L';
+				}
+			}
+			
+			if(direction == 'D') {
+				if(apple[1] > snakeHead[1]) {
+					for(int i = 0; i < snake.size() - 1; i++) {
+						if(snake.get(i)[0] == snakeHead[0] && snake.get(i)[1] == snakeHead[1] + size) {
+							if(beforeDirection != 'R') direction = 'L';
+							else direction = 'U';
+							break;
+						} else continue;
+					}
+					break;
+				} else {
+					if(beforeDirection != 'R') direction = 'L';
+					else direction = 'U';
+				}
+			}
+			
+			if(direction == 'L') {
+				if(apple[0] < snakeHead[0]) {
+					for(int i = 0; i < snake.size() - 1; i++) {
+						if(snake.get(i)[0] == snakeHead[0] - size && snake.get(i)[1] == snakeHead[1] + size) {
+							if(beforeDirection != 'D') direction = 'U';
+							else direction = 'R';
+							direction = 'U';
+							break;
+						} else continue;
+					}
+					break;
+				} else {
+					if(beforeDirection != 'D') direction = 'U';
+					else direction = 'R';
+				}
+			}
+		}
 		
 	}
 
