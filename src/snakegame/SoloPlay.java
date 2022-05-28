@@ -11,15 +11,15 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class SoloPlay extends GamePlay{
-	Record record;
+	private Record record;
 	
 	private ArrayList<int[]> snake;
-	int[] snakeHead = {300, 300};
-	char direction;
-	int[] apple = {0,0};
+	private int[] snakeHead = {300, 300};
+	private char direction;
+	private int[] apple = {0,0};
 	
-	boolean ranked;
-	String user_name;
+	private boolean ranked;
+	private String user_name;
 	
 	SoloPlay(StartGame startGame, JFrame frame, boolean save){
 		super(startGame, frame);
@@ -106,10 +106,6 @@ public class SoloPlay extends GamePlay{
 			
 			fos.close();
 		}
-	}
-	
-	public char getDirection() {
-		return direction;
 	}
 	
 	public void init() { // init snake, direction, location of apple

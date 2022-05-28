@@ -11,15 +11,15 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public abstract class GamePlay extends JPanel{
-	StartGame startGame;
-	JFrame frame;
-	GamePlay gamePlay;
+	protected StartGame startGame;
+	protected JFrame frame;
+	protected GamePlay gamePlay;
 	
-	private static int DELAY = 50;
-	static int size = 12;
-	Timer timer;
-	Graphics g;
-	MyKeyAdapter keyListener;
+	protected static final int DELAY = 50;
+	protected static final int size = 12;
+	protected Timer timer;
+	protected Graphics g;
+	protected MyKeyAdapter keyListener;
 	
 	GamePlay(StartGame startGame, JFrame frame){
 		this.startGame = startGame;

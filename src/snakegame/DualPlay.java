@@ -11,11 +11,11 @@ import javax.swing.JOptionPane;
 public class DualPlay extends GamePlay{
 
 	private ArrayList<ArrayList<int[]>> snake;
-	int[][] snakeHead = {{0, 0},{1200-size, 1200-size}};
-	char[] direction = {'D','U'};
-	int[][] apple = {{0,0},{0,0}};
+	private int[][] snakeHead = {{0, 0},{1200-size, 1200-size}};
+	private char[] direction = {'D','U'};
+	private int[][] apple = {{0,0},{0,0}};
 	
-	int victory = 0;
+	private int victory = 0;
 	
 	DualPlay(StartGame startGame, JFrame frame) {
 		super(startGame, frame);
