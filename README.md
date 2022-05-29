@@ -13,11 +13,17 @@ Run
 
 2. Go to the directory where the jar file exists
 
-![image](https://user-images.githubusercontent.com/44457864/166146116-197adf3c-a302-4da0-adca-44542bb58f8c.png)
+![image](https://user-images.githubusercontent.com/44457864/170862956-99e92c35-4158-40e6-b3f8-450cfa64b024.png)
 
-3. Enter "java -jar SnakeGame.jar"
+![image](https://user-images.githubusercontent.com/44457864/170863569-0abf9935-9f4c-4f05-8b84-0eed6c15be3e.png)
+
+3-1. Enter "java -jar SnakeGame1.0.jar"
 
 ![image](https://user-images.githubusercontent.com/44457864/166146141-6e038e2a-2b9c-4408-b4ea-82a216c971a8.png)
+
+3-2. Enter "java -jar SnakeGame2.0.jar
+
+![image](https://user-images.githubusercontent.com/44457864/170864181-837aa990-59c8-4d78-9538-3d5906d3bff0.png)
 --------------
 1. Open Eclipse ( or other IDE )
 2. File > Switch WorkSapce > your work space  
