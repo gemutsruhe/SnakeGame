@@ -22,8 +22,8 @@ public class Ranking extends JPanel{
 	private JPanel rankPanel;
 	private JButton back;
 	
-	String[] names;
-	int[] scores;
+	private String[] names;
+	private int[] scores;
 	
 	Ranking(GameMenu gamemenu){
 		

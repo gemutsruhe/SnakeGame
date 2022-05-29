@@ -101,7 +101,6 @@ public class DualPlay extends GamePlay{
 		for(int i = 0; i < snake.get(1).size(); i++) {
 			g.fillRect(snake.get(1).get(i)[0], snake.get(1).get(i)[1], size, size);
 		}
-		
 	}
 
 	@Override
@@ -154,10 +153,10 @@ public class DualPlay extends GamePlay{
 		}
 		
 		if(snakeHead[0][0] < 0 || snakeHead[0][0] >= 1200 || snakeHead[0][1] < 0 || snakeHead[0][1] >= 600) {
-			if(victory == 0) victory = 1;
+			if(victory == 0) victory = 2;
 		}
 		if(snakeHead[1][0] < 0 || snakeHead[1][0] >= 1200 || snakeHead[1][1] < 0 || snakeHead[1][1] >= 600) {
-			if(victory == 0) victory = 2;
+			if(victory == 0) victory = 1;
 			else victory = 3;
 		}
 		if(victory != 0) return true;

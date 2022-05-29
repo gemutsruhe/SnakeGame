@@ -10,9 +10,9 @@ import javax.swing.JOptionPane;
 public class AutoPlay extends GamePlay{
 	
 	private ArrayList<int[]> snake;
-	int[] snakeHead = {300, 300};
-	char direction;
-	int[] apple = {0,0};
+	private int[] snakeHead = {300, 300};
+	private char direction;
+	private int[] apple = {0,0};
 	
 	AutoPlay(StartGame startGame, JFrame frame) {
 		super(startGame, frame);
@@ -83,9 +83,7 @@ public class AutoPlay extends GamePlay{
 					if(beforeDirection != 'L') direction = 'R';
 					else direction = 'D';
 				}
-			}
-			
-			if(direction == 'R') {
+			} else if(direction == 'R') {
 				if(apple[0] > snakeHead[0]) {
 					for(int i = 0; i < snake.size() - 1; i++) {
 						if(snake.get(i)[0] == snakeHead[0] + size && snake.get(i)[1] == snakeHead[1]) {
@@ -99,9 +97,7 @@ public class AutoPlay extends GamePlay{
 					if(beforeDirection != 'U') direction = 'D';
 					else direction = 'L';
 				}
-			}
-			
-			if(direction == 'D') {
+			}else if(direction == 'D') {
 				if(apple[1] > snakeHead[1]) {
 					for(int i = 0; i < snake.size() - 1; i++) {
 						if(snake.get(i)[0] == snakeHead[0] && snake.get(i)[1] == snakeHead[1] + size) {
@@ -115,12 +111,10 @@ public class AutoPlay extends GamePlay{
 					if(beforeDirection != 'R') direction = 'L';
 					else direction = 'U';
 				}
-			}
-			
-			if(direction == 'L') {
+			} else if(direction == 'L') {
 				if(apple[0] < snakeHead[0]) {
 					for(int i = 0; i < snake.size() - 1; i++) {
-						if(snake.get(i)[0] == snakeHead[0] - size && snake.get(i)[1] == snakeHead[1] + size) {
+						if(snake.get(i)[0] == snakeHead[0] - size && snake.get(i)[1] == snakeHead[1]) {
 							if(beforeDirection != 'D') direction = 'U';
 							else direction = 'R';
 							direction = 'U';

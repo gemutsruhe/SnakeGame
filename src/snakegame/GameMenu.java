@@ -5,8 +5,8 @@ import javax.swing.JPanel;
 import java.awt.CardLayout;
 
 public class GameMenu extends JPanel{
-	StartGame startGame;
-	JFrame frame;
+	private StartGame startGame;
+	private JFrame frame;
 
 	private MainMenu mainmenu;
 	private Ranking rankmenu;
@@ -29,7 +29,6 @@ public class GameMenu extends JPanel{
 	
 	public StartGame getStartGame() {
 		return startGame;
-
 	}
 	
 	public Ranking getRankingMenu() {
